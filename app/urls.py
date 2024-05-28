@@ -7,5 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("", views.home, name='home'),
     path("category/<slug:val>", views.CategoryView.as_view(), name='category'),
+    path("product-title/<val>", views.CategoryTitle.as_view(), name='-title'),
+    path("product-detail/<int:pk>", views.ProductDetail.as_view(), name='product-detail'),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
