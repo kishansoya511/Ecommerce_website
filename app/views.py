@@ -2,7 +2,11 @@ from django.shortcuts import render, HttpResponse
 from django.views import View
 from .models import Product
 from django.db.models import Count  
-from .forms import CustomerRegistrationForm
+from .forms import CustomerRegistrationForm, LoginForm
+from django.contrib import messages
+from django.contrib.auth.models import User
+
+
 
 # Create your views here.
 
@@ -39,6 +43,16 @@ class CustomerRegistrationView(View):
         form = CustomerRegistrationForm()
         return render(request,'app/customerregistarion.html',locals())
 
+    def post(self,request):
+        form = CustomerRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Congratulations user Registration is successful")
+        else:
+            messages.warning(request,"Invalid Input data")
+        return render(request,'app/customerregistarion.html',locals())
 
 
-        
+
+                
+       
