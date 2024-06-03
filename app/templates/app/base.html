@@ -32,12 +32,15 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          {% if request.user.is_authenticated %}
+          
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Products
             </a>
             <ul class="dropdown-menu">
@@ -89,6 +92,8 @@
           <a href="#" class="nav-link text-white">Wishlist 4</a>
         </li>
 
+        {% else %}
+
         <li class="nav-item mx-2">
           <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
         </li>
@@ -96,6 +101,8 @@
         <li class="nav-item mx-2">
           <a href="{% url 'customerregistation' %}" class="nav-link text-white">Registration</a>
         </li>
+
+        {% endif%}
 
       </ul>
 

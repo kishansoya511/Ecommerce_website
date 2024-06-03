@@ -1,6 +1,6 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.views import View
-from .models import Product
+from .models import Product, Cart
 from django.db.models import Count  
 from .forms import CustomerRegistrationForm, CustomerProfileForm
 from django.contrib import messages
@@ -102,3 +102,15 @@ class UpdateAddress(View):
             add.save()
             messages.success(request,"Congratrulations! Profile updated successfully")
         return render(request,'app/updateaddress.html',locals())
+
+def add_to_cart(self,request):
+    user = request.user
+    product_id = request.GET.get('prod_id')
+    product = Product.objects.get(id=product_id)
+    Cart(user=user,product=product).save()
+    return redirect("/cart")
+
+def show_cart(self,request):
+    user = request.user
+    cart = Cart.objects.filter(user=user) 
+    return render(request, 'app/addtocart.html',locals())
